@@ -7,8 +7,14 @@ class DataService {
         this.url = baseURL
         this.client = client
     }
-    getWeatherFarenheit(city) {
-        return this.client.get(this.url + `?q=${city}&appid=` + token + "&units=imperial")
+    getCurrentWeatherFarenheit(city) {
+        return this.client.get(`${this.url}?q=${city}&appid=${token}&units=imperial`)
+    }
+    getCurrentWeatherCelsius(city) {
+        return this.client.get(`${this.url}?q=${city}&appid=${token}&units=metric`)
+    }
+    getCurrentWeatherUS(city, state) {
+        return this.client.get(`${this.url}?q=${city},${state},&appid=${token}&units=imperial`)
     }
 }
 export default DataService

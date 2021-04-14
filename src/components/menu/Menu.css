@@ -1,0 +1,13 @@
+.Menu{
+    display: flex;
+    order: 1;
+    width: 100vw;
+    height: 10vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: rgb(110, 197, 197);
+    border: 1px solid grey;
+    border-radius: 0.75em;
+}

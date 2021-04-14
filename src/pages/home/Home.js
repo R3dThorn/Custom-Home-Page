@@ -1,61 +1,48 @@
 import React from "react";
 import DataService from "../../dataService"
+import Card from "../../components/card/Card"
+import Menu from "../../components/menu/Menu"
+import "./Home.css"
 
 class Home extends React.Component {
     constructor(props) {
         super(props)
-        this.state ={
+        this.state = {
             temperatureF: "loading",
             temperatureC: "loading",
             city: "loading",
-            country: "US"
+            country: "US",
+            cards: []
         }
         this.client = new DataService()
         this.callWeather = this.callWeather.bind(this)
     }
-    componentDidMount() {
-        this.client.getWeatherFarenheit("Murfreesboro")
-            .then(response => {
-                console.log(response)
-                this.setState(
-                    { 
-                        temperatureF: response.data.main.temp,
-                        city: response.data.name,
-                        country: response.data.sys.country
-                    }
-                )
-            })
-            //.then()
-            .catch(e => console.log(e))
-    }
+// Replace current state with card based defaults for passdown.
+// Possibly inherit from a JSON file?
     callWeather() {
         const userInput = document.getElementById("city-input")
-        this.client.getWeatherFarenheit(userInput.value)
+        this.client.getCurrentWeatherFarenheit(userInput.value)
             .then(response => {
                 console.log(response)
-                this.setState(
-                    {
-                        temperatureF: response.data.main.temp,
-                        city: response.data.name,
-                        country: response.data.sys.country
-                    }
-                )
+                let newCard = new Card()
+                newCard.setState({
+                    temperatureF: response.data.main.temp,
+                    city: response.data.name,
+                    country: response.data.sys.country
+                })
+                this.setState((state)=>{ cards: state.cards.push(newCard) })
             })
             .catch(e => console.log(e))
     }
-
+// Make this generate a new card and add to current state. Lifecycles???^
     render() {
         return(
             <div className="Home">
-                <label htmlFor="city-input">Search for city:</label>
-                <input id="city-input" name="city-input" type="text"></input>
-                <button id="search-button" onClick={this.callWeather}>Search</button>
-                <div id="temperature-output">
-                    {this.state.temperatureF}
-                </div>
-                <div id="city-name">
-                    {this.state.city}, {this.state.country}
-                </div>
+                <Menu />
+                <Card defaultName={"Murfreesboro"} />
+                <Card defaultName={"Paris"} />
+                <Card defaultName={"London"} />
+                <Card defaultName={"Beijing"} />
             </div>
         )
     }
