@@ -40,8 +40,8 @@ class Home extends React.Component {
             <div className="Home">
                 <Menu />
                 <Card defaultName={"Murfreesboro"} />
-                <Card defaultName={"Paris"} />
                 <Card defaultName={"London"} />
+                <Card defaultName={"Rio de Janeiro"} />
                 <Card defaultName={"Beijing"} />
             </div>
         )

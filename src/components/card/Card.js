@@ -3,6 +3,7 @@ import DataService from "../../dataService"
 import "./Card.css"
 import {ReactComponent as SunIcon} from "../../assets/Sun.svg"
 import {ReactComponent as CloudIcon} from "../../assets/PartlyCloudy.svg"
+import {ReactComponent as LightRainIcon} from "../../assets/LightRain.svg"
 
 class Card extends Component
 {
@@ -17,7 +18,8 @@ class Card extends Component
             temperatureF: "loading",
             temperatureC: "loading",
             weather: "loading",
-            weatherDescription: "loading"
+            weatherDescription: "loading",
+            timestamp: "loading"
         }
         this.client = new DataService()
     }
@@ -29,10 +31,12 @@ class Card extends Component
                 this.setState(
                     { 
                         temperatureF: response.data.main.temp.toFixed(1),
+                        temperatureC: ((response.data.main.temp-32)*(5/9)).toFixed(1),
                         city: response.data.name,
                         country: response.data.sys.country,
                         weather: response.data.weather[0].main,
-                        weatherDescription: response.data.weather[0].description.toUpperCase()
+                        weatherDescription: response.data.weather[0].description.toUpperCase(),
+                        timestamp: new Date(response.data.dt*1000).toString()
                     }
                 )
             })
@@ -49,20 +53,28 @@ class Card extends Component
         if (this.state.weather === "Clouds"){
             weatherLogo = <CloudIcon className="weatherIcon" />
         }
+        if (this.state.weather === "Rain" && this.state.weatherDescription === "LIGHT RAIN"){
+            weatherLogo = <LightRainIcon className="weatherIcon" />
+        }
         return (
             <div className="Card">
                 {weatherLogo}
                 <div id="weather">
-                    {this.state.weather}
-                </div>
-                <div id="weather-description">
-                    {this.state.weatherDescription}
+                    <div id="weather-simple">
+                        {this.state.weather}
+                    </div>
+                    <div id="weather-description">
+                        {this.state.weatherDescription}
+                    </div>
                 </div>
                 <div id="temperature-output">
-                    {this.state.temperatureF} &#176;F
+                    {this.state.temperatureF} &#176;F <span id="temp-celsius">/ {this.state.temperatureC} &#176;C</span>
                 </div>
                 <div id="city-name">
                     {this.state.city}, {this.state.country}
+                </div>
+                <div id="timestamp">
+                    Last updated: {this.state.timestamp}
                 </div>
             </div>
         )
