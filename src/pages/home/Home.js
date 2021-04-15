@@ -8,17 +8,21 @@ class Home extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            temperatureF: "loading",
-            temperatureC: "loading",
-            city: "loading",
-            country: "US",
-            cards: []
+            // Replace current state with card based defaults for passdown.
+            // Possibly inherit from a JSON file?
+            cards: [
+                "Murfreesboro",
+                "London",
+                "Rio de Janeiro",
+                "Beijing"
+            ],
+            fullscreen: false
         }
         this.client = new DataService()
         this.callWeather = this.callWeather.bind(this)
+        this.cardEnterFullScreen = this.cardEnterFullScreen.bind(this)
     }
-// Replace current state with card based defaults for passdown.
-// Possibly inherit from a JSON file?
+    // Make this generate a new card and add to current state. Lifecycles?
     callWeather() {
         const userInput = document.getElementById("city-input")
         this.client.getCurrentWeatherFarenheit(userInput.value)
@@ -34,15 +38,26 @@ class Home extends React.Component {
             })
             .catch(e => console.log(e))
     }
-// Make this generate a new card and add to current state. Lifecycles???^
+    // Handle card fullscreen transition and removal
+    // Use document.getElementByID('city name').classList.add('CSS animation class name')
+    // Then use .classList.remove() with another .classList.add() to play removal animation
+    // Then remove the closing CSS animation class with another .classList.remove()
+    cardEnterFullScreen(city) {
+        const currentCard = ""
+        this.setState({ fullscreen: true })
+        return alert(city + " clicked")
+    }
+
+    cardExitFullScreen(){
+        this.setState({ fullscreen : false })
+    }
+
     render() {
+        // overlayscrollbars-react installed. Possibly implement this into cards?
         return(
             <div className="Home">
                 <Menu />
-                <Card defaultName={"Murfreesboro"} />
-                <Card defaultName={"London"} />
-                <Card defaultName={"Rio de Janeiro"} />
-                <Card defaultName={"Beijing"} />
+                {this.state.cards.map(city => <Card key={city} defaultName={city} cardFull={() => this.cardEnterFullScreen(city)} />)}
             </div>
         )
     }
