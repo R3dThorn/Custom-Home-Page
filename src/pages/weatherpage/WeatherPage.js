@@ -1,5 +1,5 @@
 import React from "react";
-import DataService from "../../dataService"
+import WeatherService from "../../weatherService"
 import Card from "../../components/card/Card"
 import Menu from "../../components/menu/Menu"
 import "./WeatherPage.css"
@@ -14,11 +14,11 @@ class WeatherPage extends React.Component {
                 "Murfreesboro",
                 "London",
                 "Rio de Janeiro",
-                "Beijing"
+                "Sydney"
             ],
             fullscreen: false
         }
-        this.client = new DataService()
+        this.client = new WeatherService()
         this.callWeather = this.callWeather.bind(this)
         this.cardEnterFullScreen = this.cardEnterFullScreen.bind(this)
     }

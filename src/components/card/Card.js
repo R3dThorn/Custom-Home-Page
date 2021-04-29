@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import DataService from "../../dataService"
+import WeatherService from "../../weatherService"
 import "./Card.css"
 import {ReactComponent as SunIcon} from "../../assets/Sun.svg"
 import {ReactComponent as CloudIcon} from "../../assets/PartlyCloudy.svg"
@@ -22,8 +22,9 @@ class Card extends Component
             weatherDescription: "loading",
             timestamp: "loading"
         }
-        this.client = new DataService()
+        this.client = new WeatherService()
     }
+    
     componentDidMount() 
     {
         this.client.getCurrentWeatherFarenheit(this.props.defaultName)
