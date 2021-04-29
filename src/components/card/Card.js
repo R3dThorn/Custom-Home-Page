@@ -51,13 +51,16 @@ class Card extends Component
         if (this.state.weather === "Clear"){
             weatherLogo = <SunIcon className="weatherIcon" />
         }
-        if (this.state.weather === "Clouds"){
+        else if (this.state.weather === "Clouds"){
             weatherLogo = <CloudIcon className="weatherIcon" />
         }
-        if (this.state.weather === "Rain"){
-            this.state.weatherDescription === "LIGHT RAIN" ? 
-                weatherLogo = <LightRainIcon className="weatherIcon" /> : 
-                weatherLogo = <HeavyRainIcon className="weatherIcon" />
+        else if (this.state.weather === "Rain"){
+            this.state.weatherDescription === "LIGHT RAIN" 
+                ? weatherLogo = <LightRainIcon className="weatherIcon" /> 
+                : weatherLogo = <HeavyRainIcon className="weatherIcon" />
+        }
+        else {
+            weatherLogo = <p className="weatherIcon">?</p>
         }
 
         return (

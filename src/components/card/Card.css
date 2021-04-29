@@ -14,13 +14,16 @@
 
     background-color: rgba(179, 111, 211, 0.438);
 }
-svg{
-    height: 4em;
-    width: 4em;
-}
 .weatherIcon{
     border: 2px solid black;
     background-color: rgba(255,255,255,0.5);
+    height: 4em;
+    width: 4em;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
 }
 #weather-simple{
     text-decoration: underline;
