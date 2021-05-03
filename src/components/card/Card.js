@@ -49,19 +49,20 @@ class Card extends Component
     render() 
     {
         let weatherLogo;
-        if (this.state.weather === "Clear"){
-            weatherLogo = <SunIcon className="weatherIcon" />
-        }
-        else if (this.state.weather === "Clouds"){
-            weatherLogo = <CloudIcon className="weatherIcon" />
-        }
-        else if (this.state.weather === "Rain"){
-            this.state.weatherDescription === "LIGHT RAIN" 
-                ? weatherLogo = <LightRainIcon className="weatherIcon" /> 
-                : weatherLogo = <HeavyRainIcon className="weatherIcon" />
-        }
-        else {
-            weatherLogo = <p className="weatherIcon">?</p>
+        switch (this.state.weather){
+            case "Clear":
+                weatherLogo = <SunIcon className="weatherIcon" />
+                break
+            case "Clouds":
+                weatherLogo = <CloudIcon className="weatherIcon" />
+                break
+            case "Rain":
+                this.state.weatherDescription === "LIGHT RAIN" 
+                    ? weatherLogo = <LightRainIcon className="weatherIcon" /> 
+                    : weatherLogo = <HeavyRainIcon className="weatherIcon" />
+                break
+            default:
+                weatherLogo = <p className="weatherIcon">?</p>
         }
 
         return (
