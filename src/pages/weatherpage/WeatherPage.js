@@ -34,7 +34,9 @@ class WeatherPage extends React.Component {
                     city: response.data.name,
                     country: response.data.sys.country
                 })
-                this.setState((state)=>{ cards: state.cards.push(newCard) })
+                let cardArray = this.state.cards
+                cardArray.push(newCard)
+                this.setState({ cards : cardArray })
             })
             .catch(e => console.log(e))
     }
@@ -44,12 +46,15 @@ class WeatherPage extends React.Component {
     // Then remove the closing CSS animation class with another .classList.remove()
     cardEnterFullScreen(city) {
         const currentCard = ""
-        this.setState({ fullscreen: true })
-        return alert(city + " clicked")
-    }
-
-    cardExitFullScreen(){
-        this.setState({ fullscreen : false })
+        if (this.state.fullscreen === true){
+            this.setState({ fullscreen: false })
+        }
+        else {
+            this.setState({ fullscreen: true })
+        }
+        setTimeout(
+            () => {console.log(city + " clicked", this.state.fullscreen)}, 250
+        )
     }
 
     render() {
