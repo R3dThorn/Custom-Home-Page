@@ -3,6 +3,7 @@ import WeatherService from "../../weatherService"
 import Card from "../../components/card/Card"
 import Menu from "../../components/menu/Menu"
 import "./WeatherPage.css"
+import * as fs from "fs"
 
 class WeatherPage extends React.Component {
     constructor(props) {
@@ -24,21 +25,17 @@ class WeatherPage extends React.Component {
     }
     // Make this generate a new card and add to current state. Lifecycles?
     callWeather() {
-        const userInput = document.getElementById("city-input")
-        this.client.getCurrentWeatherFarenheit(userInput.value)
-            .then(response => {
-                console.log(response)
-                let newCard = new Card()
-                newCard.setState({
-                    temperatureF: response.data.main.temp,
-                    city: response.data.name,
-                    country: response.data.sys.country
-                })
-                let cardArray = this.state.cards
-                cardArray.push(newCard)
-                this.setState({ cards : cardArray })
-            })
-            .catch(e => console.log(e))
+        const userInput = document.getElementById("city-input").value
+        const e = "e"
+        // this.client.getCurrentWeatherFarenheit(userInput.value)
+        //     .then(response => {
+                // console.log(response)
+                let cardsTemp = this.state.cards
+                cardsTemp.push(userInput)
+                this.setState({cards : cardsTemp})
+                console.log(this.state.cards)
+            // })
+            // .catch(e => console.log(e))
     }
     // Handle card fullscreen transition and removal
     // Use document.getElementByID('city name').classList.add('CSS animation class name')
@@ -62,6 +59,11 @@ class WeatherPage extends React.Component {
         return(
             <div className="Home">
                 <Menu />
+                <div>
+                    <label htmlFor="city-input">Search for city: </label>
+                    <input id="city-input" name="city-input" type="text"></input>
+                    <button id="search-button" onClick={this.callWeather}>Search</button>
+                </div>
                 {this.state.cards.map(city => <Card key={city} defaultName={city} cardFull={() => this.cardEnterFullScreen(city)} />)}
             </div>
         )

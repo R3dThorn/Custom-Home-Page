@@ -14,9 +14,6 @@ class Menu extends Component{
                 <Link to="/">Home</Link>
                 <Link to="/weather">Weather</Link>
             </div>
-            <label htmlFor="city-input">Search for city: </label>
-            <input id="city-input" name="city-input" type="text"></input>
-            <button id="search-button" onClick={this.callWeather}>Search</button>
         </div>
         )
     }

@@ -1,0 +1,22 @@
+{
+    "user1": {
+      "username": "sampletext",
+      "password": "sampletext",
+      "cities": [
+        "Murfreesboro",
+        "London",
+        "Rio De Janeiro",
+        "Shanghai"
+      ]
+    },
+    "user2": {
+      "username": "ugly",
+      "password": "barnacle",
+      "cities": [
+        "Nashville",
+        "Ciudad de Mexico",
+        "San Francisco",
+        "Madrid"
+      ]
+    }
+  }
